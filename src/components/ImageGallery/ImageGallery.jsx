@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import ImageCard from "../ImageCard/ImageCard";
+import s from "./ImageGallery.module.css";
 
 const ImageGallery = ({ photos }) => {
   return (
-    <ul>
+    <ul className={s.container}>
       {photos.map((item) => (
         <li key={item.id}>
           <ImageCard item={item} />

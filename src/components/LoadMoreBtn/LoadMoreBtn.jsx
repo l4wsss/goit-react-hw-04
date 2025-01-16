@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
+import s from "./LoadMoreBtn.module.css";
 
 const LoadMoreBtn = ({ handleLoadMore }) => {
   return (
-    <button onClick={handleLoadMore} type="button">
-      Load more
-    </button>
+    <div className={s.container}>
+      <button onClick={handleLoadMore} type="button" className={s.button}>
+        Load more
+      </button>
+    </div>
   );
 };
 

@@ -1,0 +1,35 @@
+.container {
+  background-color: blue;
+  height: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  font-size: 26px;
+  padding-left: 35px;
+  border-radius: 15px;
+}
+
+.input::placeholder {
+  font-size: 18px;
+}
+
+.form {
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  bottom: 0;
+  border: none;
+  background-color: transparent;
+  color: gray;
+}
+
+.button:active {
+  color: black;
+}

@@ -13,7 +13,6 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-
   useEffect(() => {
     const getPhotosData = async () => {
       if (!query.trim()) return;

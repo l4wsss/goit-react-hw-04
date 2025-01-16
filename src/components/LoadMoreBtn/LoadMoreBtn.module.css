@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.button {
+  background-color: blue;
+  padding: 10px 30px;
+  font-size: 22px;
+  color: aliceblue;
+  border-radius: 10px;
+  border: none;
+}
