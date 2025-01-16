@@ -4,8 +4,12 @@ import { AiFillLike } from "react-icons/ai";
 
 const ImageCard = ({ item, openModal }) => {
   return (
-    <div onClick={() => openModal(item.urls.regular)} className={s.container}>
-      <img src={item.urls.small} alt={item.alt_description || "Image"} />
+    <div className={s.container}>
+      <img
+        src={item.urls.small}
+        alt={item.alt_description || "Image"}
+        onClick={() => openModal(item.urls.regular)}
+      />
       <span className={s.likes}>
         <AiFillLike />
         {item.likes}

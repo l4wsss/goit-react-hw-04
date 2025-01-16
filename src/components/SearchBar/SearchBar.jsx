@@ -2,13 +2,18 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import s from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const SearchBar = ({ onSearchChanged }) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (value.trim() === "") {
+      return toast.error("Поле не може бути порожнім!");
+    }
     onSearchChanged(value);
+    console.log(value);
   };
 
   return (

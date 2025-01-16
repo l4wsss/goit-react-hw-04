@@ -18,10 +18,6 @@ const App = () => {
   const [modalContent, setModalContent] = useState(""); // Контент модалки
   useEffect(() => {
     const getPhotosData = async () => {
-      if (!query.trim()) {
-        return toast.error("Поле не може бути порожнім!");
-      }
-
       try {
         setIsError(false);
         setIsLoading(true);
@@ -35,7 +31,9 @@ const App = () => {
         setIsLoading(false);
       }
     };
-    getPhotosData();
+    if (query.trim()) {
+      getPhotosData();
+    }
   }, [query, page]);
 
   const handleChangeQuery = (newQuery) => {
