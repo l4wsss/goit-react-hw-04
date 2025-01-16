@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import s from "./App.module.css";
 import fetchPhoto from "./services/api";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
@@ -7,9 +6,7 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import toast from "react-hot-toast";
-import Modal from "react-modal";
-
-Modal.setAppElement("#root");
+import ImageModal from "./components/ImageModal/ImageModal";
 
 const App = () => {
   const [photos, setPhotos] = useState([]);
@@ -55,34 +52,28 @@ const App = () => {
   };
 
   const openModal = (content) => {
-    setModalContent(content); // Встановлюємо контент для модалки
-    setIsModalOpen(true); // Відкриваємо модалку
+    setModalContent(content);
+    setIsModalOpen(true);
   };
 
-  const closeModal = () => setIsModalOpen(false); // Закриваємо модалку
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div>
       <SearchBar onSearchChanged={handleChangeQuery} />
       <ImageGallery photos={photos} openModal={openModal} />
-      {query.trim() && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
+      {photos.length > 0 ? (
+        <LoadMoreBtn handleLoadMore={handleLoadMore} />
+      ) : null}
+
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
       {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          contentLabel="Photo Modal"
-          className={s.modalContent} // Клас для кастомізації стилів
-          overlayClassName={s.modalOverlay} // Клас для overlay (фон за модалкою)
-        >
-          <div className={s.container}>
-            <button onClick={closeModal} className={s.button}>
-              Close
-            </button>
-            <img src={modalContent} alt="Modal content" className={s.img} />
-          </div>
-        </Modal>
+        <ImageModal
+          closeModal={closeModal}
+          isModalOpen={isModalOpen}
+          modalContent={modalContent}
+        />
       )}
     </div>
   );
