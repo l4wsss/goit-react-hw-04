@@ -7,6 +7,9 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import toast from "react-hot-toast";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 const App = () => {
   const [photos, setPhotos] = useState([]);
@@ -14,7 +17,8 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-
+  const [isModalOpen, setIsModalOpen] = useState(false); // Стан для відкриття модалки
+  const [modalContent, setModalContent] = useState(""); // Контент модалки
   useEffect(() => {
     const getPhotosData = async () => {
       if (!query.trim()) {
@@ -50,13 +54,36 @@ const App = () => {
     setPage(page + 1);
   };
 
+  const openModal = (content) => {
+    setModalContent(content); // Встановлюємо контент для модалки
+    setIsModalOpen(true); // Відкриваємо модалку
+  };
+
+  const closeModal = () => setIsModalOpen(false); // Закриваємо модалку
+
   return (
-    <div className={s.container}>
+    <div>
       <SearchBar onSearchChanged={handleChangeQuery} />
-      <ImageGallery photos={photos} />
+      <ImageGallery photos={photos} openModal={openModal} />
       {query.trim() && <LoadMoreBtn handleLoadMore={handleLoadMore} />}
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          contentLabel="Photo Modal"
+          className={s.modalContent} // Клас для кастомізації стилів
+          overlayClassName={s.modalOverlay} // Клас для overlay (фон за модалкою)
+        >
+          <div className={s.container}>
+            <button onClick={closeModal} className={s.button}>
+              Close
+            </button>
+            <img src={modalContent} alt="Modal content" className={s.img} />
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
