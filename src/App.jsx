@@ -6,6 +6,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import toast from "react-hot-toast";
 
 const App = () => {
   const [photos, setPhotos] = useState([]);
@@ -13,9 +14,12 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+
   useEffect(() => {
     const getPhotosData = async () => {
-      if (!query.trim()) return;
+      if (!query.trim()) {
+        return toast.error("Поле не може бути порожнім!");
+      }
 
       try {
         setIsError(false);
@@ -25,6 +29,7 @@ const App = () => {
       } catch (err) {
         setIsError(true);
         console.log(err);
+        toast.error("Помилка при завантаженні даних");
       } finally {
         setIsLoading(false);
       }
@@ -42,7 +47,6 @@ const App = () => {
 
   const handleLoadMore = (e) => {
     e.preventDefault();
-
     setPage(page + 1);
   };
 
