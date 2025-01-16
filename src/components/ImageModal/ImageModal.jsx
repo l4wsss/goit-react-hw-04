@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import s from "./ImageModal.module.css";
 import PropTypes from "prop-types";
+import { IoClose } from "react-icons/io5";
 
 Modal.setAppElement("#root");
 
@@ -28,7 +29,7 @@ const ImageModal = ({ closeModal, isModalOpen, modalContent }) => {
     >
       <div className={s.container}>
         <button onClick={closeModal} className={s.button}>
-          Close
+          <IoClose size="1.5em" />
         </button>
         <img src={modalContent} alt="Modal content" className={s.img} />
       </div>
